@@ -19,11 +19,16 @@ uploadFormCansel.addEventListener('click', function () {
 
 for (var i = 0; i < uploadFilter.length; i++) {
   uploadFilter[i].addEventListener('change', function (event) {
+    removeFilter();
     var filterName = 'filter-' + event.currentTarget.value;
     filterImagePreview.classList.add(filterName);
   });
-  uploadFilter[i].addEventListener('blur', function (event) {
-    var filterName = 'filter-' + event.currentTarget.value;
-    filterImagePreview.classList.remove(filterName);
-  });
+}
+
+function removeFilter() {
+  for (var j = 0; j < filterImagePreview.classList.length; j++) {
+    if (filterImagePreview.classList[j] !== 'filter-image-preview' && filterImagePreview.classList[j].substring(0, 7) === 'filter-') {
+      filterImagePreview.classList.remove(filterImagePreview.classList[j]);
+    }
+  }
 }
