@@ -8,6 +8,7 @@ var uploadFilter = document.querySelectorAll('[name="upload-filter"]');
 var filterImagePreview = document.querySelector('.filter-image-preview');
 
 uploadFile.addEventListener('change', function () {
+  removeFilter();
   uploadOverlay.classList.remove('invisible');
   uploadSelectImage.classList.add('invisible');
 });
