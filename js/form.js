@@ -6,15 +6,15 @@ var uploadSelectImage = document.querySelector('#upload-select-image');
 var uploadFile = uploadSelectImage.querySelector('#upload-file');
 // var uploadFilterControls = document.querySelector('.upload-filter-controls');
 var filterImagePreview = document.querySelector('.filter-image-preview');
-var resizeControls = uploadOverlay.querySelector('.upload-resize-controls');
-var resizeControlsValue = resizeControls.querySelector('.upload-resize-controls-value');
-var resizeControlsDec = resizeControls.querySelector('.upload-resize-controls-button-dec');
-var resizeControlsInc = resizeControls.querySelector('.upload-resize-controls-button-inc');
-var scaleMin = 0.25;
-var scaleMax = 1;
-var scaleStep = 0.25;
-var scaleDefault = 1;
-var scaleCurrent = scaleDefault;
+// var resizeControls = uploadOverlay.querySelector('.upload-resize-controls');
+// var resizeControlsValue = resizeControls.querySelector('.upload-resize-controls-value');
+// var resizeControlsDec = resizeControls.querySelector('.upload-resize-controls-button-dec');
+// var resizeControlsInc = resizeControls.querySelector('.upload-resize-controls-button-inc');
+// var scaleMin = 0.25;
+// var scaleMax = 1;
+// var scaleStep = 0.25;
+// var scaleDefault = 1;
+// var scaleCurrent = scaleDefault;
 
 var ENTER_KEY_CODE = 13;
 var SPACE_CHAR_CODE = 32;
@@ -46,10 +46,10 @@ var setEscapeHandler = function (event) {
   }
 };
 
-var resizeImage = function () {
-  resizeControlsValue.value = +(scaleCurrent * 100).toFixed(5) + '%';
-  filterImagePreview.style.transform = 'scale(' + scaleCurrent + ')';
-};
+// var resizeImage = function () {
+//   resizeControlsValue.value = +(scaleCurrent * 100).toFixed(5) + '%';
+//   filterImagePreview.style.transform = 'scale(' + scaleCurrent + ')';
+// };
 
 // var removeFilterFromPreview = function () {
 //   filterImagePreview.className = filterImagePreview.classList[0];
@@ -64,7 +64,7 @@ window.generateEvent = function (type, element) {
 uploadFile.addEventListener('change', function () {
   filterImagePreview.className = filterImagePreview.classList[0];
   // removeFilterFromPreview();
-  resizeImage();
+  // resizeImage();
   toggleForms();
   document.addEventListener('keypress', setEscapeHandler);
 });
@@ -108,18 +108,18 @@ uploadCansel.addEventListener('keypress', function (event) {
 //   filterImagePreview.classList.add(filter);
 // });
 
-resizeControlsDec.addEventListener('click', function () {
-  var dec = +(scaleCurrent - scaleStep).toFixed(3);
-  if (scaleCurrent > scaleMin) {
-    scaleCurrent = (dec > scaleMin) ? dec : scaleMin;
-    resizeImage();
-  }
-});
+// resizeControlsDec.addEventListener('click', function () {
+//   var dec = +(scaleCurrent - scaleStep).toFixed(3);
+//   if (scaleCurrent > scaleMin) {
+//     scaleCurrent = (dec > scaleMin) ? dec : scaleMin;
+//     resizeImage();
+//   }
+// });
 
-resizeControlsInc.addEventListener('click', function () {
-  var inc = +(scaleCurrent + scaleStep).toFixed(3);
-  if (scaleCurrent < scaleMax) {
-    scaleCurrent = (inc < scaleMax) ? inc : scaleMax;
-    resizeImage();
-  }
-});
+// resizeControlsInc.addEventListener('click', function () {
+//   var inc = +(scaleCurrent + scaleStep).toFixed(3);
+//   if (scaleCurrent < scaleMax) {
+//     scaleCurrent = (inc < scaleMax) ? inc : scaleMax;
+//     resizeImage();
+//   }
+// });
