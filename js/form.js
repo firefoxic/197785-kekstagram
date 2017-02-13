@@ -4,7 +4,7 @@ var uploadOverlay = document.querySelector('.upload-overlay');
 var uploadCansel = uploadOverlay.querySelector('#upload-cancel');
 var uploadSelectImage = document.querySelector('#upload-select-image');
 var uploadFile = uploadSelectImage.querySelector('#upload-file');
-var uploadFilterControls = document.querySelector('.upload-filter-controls');
+// var uploadFilterControls = document.querySelector('.upload-filter-controls');
 var filterImagePreview = document.querySelector('.filter-image-preview');
 var resizeControls = uploadOverlay.querySelector('.upload-resize-controls');
 var resizeControlsValue = resizeControls.querySelector('.upload-resize-controls-value');
@@ -51,18 +51,19 @@ var resizeImage = function () {
   filterImagePreview.style.transform = 'scale(' + scaleCurrent + ')';
 };
 
-var removeFilterFromPreview = function () {
-  filterImagePreview.className = filterImagePreview.classList[0];
-};
+// var removeFilterFromPreview = function () {
+//   filterImagePreview.className = filterImagePreview.classList[0];
+// };
 
-var generateEvent = function (type, element) {
+window.generateEvent = function (type, element) {
   var newEvent = document.createEvent('Event');
   newEvent.initEvent(type, true, true);
   element.dispatchEvent(newEvent);
 };
 
 uploadFile.addEventListener('change', function () {
-  removeFilterFromPreview();
+  filterImagePreview.className = filterImagePreview.classList[0];
+  // removeFilterFromPreview();
   resizeImage();
   toggleForms();
   document.addEventListener('keypress', setEscapeHandler);
@@ -81,31 +82,31 @@ uploadCansel.addEventListener('keypress', function (event) {
   }
 });
 
-uploadFilterControls.addEventListener('keypress', function (event) {
-  if (isActivateEvent(event)) {
-    event.preventDefault();
-    var filterId = event.target.getAttribute('for');
-    var filterSelectedButton = uploadFilterControls.querySelector('#' + filterId);
-    filterSelectedButton.checked = true;
-    generateEvent('change', filterSelectedButton);
-  }
-});
+// uploadFilterControls.addEventListener('keypress', function (event) {
+//   if (isActivateEvent(event)) {
+//     event.preventDefault();
+//     var filterId = event.target.getAttribute('for');
+//     var filterSelectedButton = uploadFilterControls.querySelector('#' + filterId);
+//     filterSelectedButton.checked = true;
+//     generateEvent('change', filterSelectedButton);
+//   }
+// });
 
-uploadFilterControls.addEventListener('change', function (event) {
-  var filterName = event.target.value;
-  var filter = 'filter-' + filterName;
-  var filterId = event.target.getAttribute('id');
-  var filterLabel = document.querySelector('[for="' + filterId + '"]');
-  var filterLabels = event.target.parentNode.querySelectorAll('label');
-  filterLabel.setAttribute('aria-checked', true);
-  filterLabels.forEach(function (item) {
-    if (item !== filterLabel) {
-      item.setAttribute('aria-checked', false);
-    }
-  });
-  removeFilterFromPreview();
-  filterImagePreview.classList.add(filter);
-});
+// uploadFilterControls.addEventListener('change', function (event) {
+//   var filterName = event.target.value;
+//   var filter = 'filter-' + filterName;
+//   var filterId = event.target.getAttribute('id');
+//   var filterLabel = document.querySelector('[for="' + filterId + '"]');
+//   var filterLabels = event.target.parentNode.querySelectorAll('label');
+//   filterLabel.setAttribute('aria-checked', true);
+//   filterLabels.forEach(function (item) {
+//     if (item !== filterLabel) {
+//       item.setAttribute('aria-checked', false);
+//     }
+//   });
+//   removeFilterFromPreview();
+//   filterImagePreview.classList.add(filter);
+// });
 
 resizeControlsDec.addEventListener('click', function () {
   var dec = +(scaleCurrent - scaleStep).toFixed(3);
