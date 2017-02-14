@@ -1,14 +1,21 @@
 'use strict';
-var initializeFilters = function () {
-  var uploadFilterControls = document.querySelector('.upload-filter-controls');
+
+window.initializeFilters = function () {
+
+  var filterControls = document.querySelector('.upload-filter-controls');
+  var imagePreview = document.querySelector('.filter-image-preview');
+
+  var removeFilters = function () {
+    imagePreview.className = imagePreview.classList[0];
+  };
 
   var generateChange = function (event) {
-    if (window.isActivateEvent(event)) {
+    if (window.utils.isActivateEvent(event)) {
       event.preventDefault();
       var filterId = event.target.getAttribute('for');
-      var filterSelectedButton = uploadFilterControls.querySelector('#' + filterId);
+      var filterSelectedButton = filterControls.querySelector('#' + filterId);
       filterSelectedButton.checked = true;
-      window.generateEvent('change', filterSelectedButton);
+      window.utils.generateEvent('change', filterSelectedButton);
     }
   };
 
@@ -16,7 +23,7 @@ var initializeFilters = function () {
     var filterName = event.target.value;
     var filter = 'filter-' + filterName;
     var filterId = event.target.getAttribute('id');
-    var filterLabel = uploadFilterControls.querySelector('[for="' + filterId + '"]');
+    var filterLabel = filterControls.querySelector('[for="' + filterId + '"]');
     var filterLabels = event.target.parentNode.querySelectorAll('label');
     filterLabel.setAttribute('aria-checked', true);
     filterLabels.forEach(function (item) {
@@ -24,12 +31,12 @@ var initializeFilters = function () {
         item.setAttribute('aria-checked', false);
       }
     });
-    window.filterImagePreview.className = window.filterImagePreview.classList[0];
-    window.filterImagePreview.classList.add(filter);
+    removeFilters();
+    imagePreview.classList.add(filter);
   };
 
-  uploadFilterControls.addEventListener('keypress', generateChange);
-  uploadFilterControls.addEventListener('change', changeFilter);
-};
+  removeFilters();
+  filterControls.addEventListener('keypress', generateChange);
+  filterControls.addEventListener('change', changeFilter);
 
-initializeFilters();
+};
