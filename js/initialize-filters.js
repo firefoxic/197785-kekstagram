@@ -1,6 +1,6 @@
 'use strict';
 
-window.initializeFilters = function () {
+window.initializeFilters = (function () {
 
   var filterControls = document.querySelector('.upload-filter-controls');
   var imagePreview = document.querySelector('.filter-image-preview');
@@ -35,8 +35,10 @@ window.initializeFilters = function () {
     imagePreview.classList.add(filter);
   };
 
-  removeFilters();
-  filterControls.addEventListener('keypress', generateChange);
-  filterControls.addEventListener('change', changeFilter);
+  return function () {
+    removeFilters();
+    filterControls.addEventListener('keypress', generateChange);
+    filterControls.addEventListener('change', changeFilter);
+  };
 
-};
+})();
