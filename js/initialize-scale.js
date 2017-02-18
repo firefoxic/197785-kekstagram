@@ -2,45 +2,45 @@
 
 window.initializeScale = (function () {
 
-  var imagePreview = document.querySelector('.filter-image-preview');
-  var controls = document.querySelector('.upload-resize-controls');
-  var controlsValue = controls.querySelector('.upload-resize-controls-value');
-  var controlsDec = controls.querySelector('.upload-resize-controls-button-dec');
-  var controlsInc = controls.querySelector('.upload-resize-controls-button-inc');
+  var adjustScale = null;
 
-  return function (scaleDefault, scaleStep, scaleMin, scaleMax) {
+  return function (cb, parent, decrease, increase, initial, step, min, max) {
 
-    scaleDefault = typeof scaleDefault !== 'undefined' ? scaleDefault : 1;
-    scaleStep = typeof scaleStep !== 'undefined' ? scaleStep : 0.25;
-    scaleMin = typeof scaleMin !== 'undefined' ? scaleMin : 0.25;
-    scaleMax = typeof scaleMax !== 'undefined' ? scaleMax : 1;
+    initial = typeof initial !== 'undefined' ? initial : 1;
+    step = typeof step !== 'undefined' ? step : 0.1;
+    min = typeof min !== 'undefined' ? min : 0;
+    max = typeof max !== 'undefined' ? max : 2;
+    var current = initial;
 
-    var scaleCurrent = scaleDefault;
+    adjustScale = cb;
 
-    var resizeImage = function () {
-      controlsValue.value = +(scaleCurrent * 100).toFixed(5) + '%';
-      imagePreview.style.transform = 'scale(' + scaleCurrent + ')';
-    };
-
-    var decreaseImage = function () {
-      var dec = +(scaleCurrent - scaleStep).toFixed(3);
-      if (scaleCurrent > scaleMin) {
-        scaleCurrent = (dec > scaleMin) ? dec : scaleMin;
-        resizeImage();
+    var decreaseValue = function () {
+      var dec = +(current - step).toFixed(3);
+      if (current > min) {
+        current = (dec > min) ? dec : min;
+        adjustScale(current);
       }
     };
 
-    var increaseImage = function () {
-      var inc = +(scaleCurrent + scaleStep).toFixed(3);
-      if (scaleCurrent < scaleMax) {
-        scaleCurrent = (inc < scaleMax) ? inc : scaleMax;
-        resizeImage();
+    var increaseValue = function () {
+      var inc = +(current + step).toFixed(3);
+      if (current < max) {
+        current = (inc < max) ? inc : max;
+        adjustScale(current);
       }
     };
 
-    controlsDec.addEventListener('click', decreaseImage);
-    controlsInc.addEventListener('click', increaseImage);
-    resizeImage();
+    var chooseControl = function (event) {
+      if (event.target === decrease) {
+        decreaseValue();
+      }
+      if (event.target === increase) {
+        increaseValue();
+      }
+    };
+
+    parent.addEventListener('click', chooseControl);
+    adjustScale(current);
   };
 
 })();
