@@ -12,6 +12,7 @@
   var controlsInc = controls.querySelector('.upload-resize-controls-button-inc');
   var controlsField = controls.querySelector('.upload-resize-controls-value');
   var imagePreview = document.querySelector('.filter-image-preview');
+  var filterControls = document.querySelector('.upload-filter-controls');
 
   var resizeImage = function (scale) {
     controlsField.value = +(scale * 100).toFixed(5) + '%';
@@ -35,7 +36,6 @@
   };
 
   var openForm = function () {
-    window.initializeFilters();
     toggleForms();
     document.addEventListener('keypress', setEscapeHandler);
   };
@@ -48,9 +48,16 @@
     }
   };
 
+  var changeFilter = function (oldFilter, newFilter) {
+    imagePreview.classList.remove('filter-' + oldFilter);
+    imagePreview.classList.add('filter-' + newFilter);
+  };
+
   uploadFile.addEventListener('change', openForm);
   uploadCansel.addEventListener('click', closeForm);
   uploadCansel.addEventListener('keypress', closeForm);
+
   window.initializeScale(resizeImage, controls, controlsDec, controlsInc, 1, 0.25, 0.25, 1);
+  window.initializeFilters(filterControls, changeFilter, 'none');
 
 })();
