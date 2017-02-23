@@ -27,8 +27,7 @@
   };
 
   var setEscapeHandler = function (event) {
-    var ESCAPE_KEY_CODE = 27;
-    if ((event.target !== uploadFormDescription) && (event.keyCode === ESCAPE_KEY_CODE)) {
+    if ((event.target !== uploadFormDescription) && window.utils.isEscapeKeypress(event)) {
       event.preventDefault();
       toggleForms();
       document.removeEventListener('keypress', setEscapeHandler);
