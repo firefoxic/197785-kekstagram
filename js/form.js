@@ -50,6 +50,8 @@
     imagePreview.classList.add('filter-' + newFilter);
   };
 
+  window.pictures();
+
   uploadFile.addEventListener('change', openForm);
   uploadCansel.addEventListener('click', closeForm);
   uploadCansel.addEventListener('keypress', closeForm);
