@@ -19,6 +19,10 @@ window.utils = (function () {
       var newValue = !(element.getAttribute(attribute) === 'true');
       element.setAttribute(attribute, newValue);
     },
+    toggleVisibility: function (element) {
+      element.classList.toggle('invisible');
+      this.toggleAttribute('aria-hidden', element);
+    },
     generateEvent: function (type, element) {
       var newEvent = document.createEvent('Event');
       newEvent.initEvent(type, true, true);

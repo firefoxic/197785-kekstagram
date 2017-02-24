@@ -20,10 +20,8 @@
   };
 
   var toggleForms = function () {
-    uploadOverlay.classList.toggle('invisible');
-    uploadSelectImage.classList.toggle('invisible');
-    window.utils.toggleAttribute('aria-hidden', uploadOverlay);
-    window.utils.toggleAttribute('aria-hidden', uploadSelectImage);
+    window.utils.toggleVisibility(uploadOverlay);
+    window.utils.toggleVisibility(uploadSelectImage);
   };
 
   var setEscapeHandler = function (event) {
