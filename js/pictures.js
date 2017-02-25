@@ -40,6 +40,8 @@ window.pictures = (function () {
 
       picturesContainer.appendChild(newElement);
 
+      return newElement;
+
     };
 
     var onLoadData = function (data) {
