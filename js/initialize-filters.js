@@ -21,7 +21,7 @@ window.initializeFilters = (function () {
       var chosenFilterLabel = event.target.nextElementSibling;
       window.utils.toggleAttribute('aria-checked', currentFilterLabel);
       window.utils.toggleAttribute('aria-checked', chosenFilterLabel);
-      callback(currentFilter, chosenFilter);
+      callback(chosenFilter, currentFilter);
       currentFilter = chosenFilter;
       currentFilterLabel = chosenFilterLabel;
     };

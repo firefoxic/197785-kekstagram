@@ -45,7 +45,7 @@
     }
   };
 
-  var changeFilter = function (oldFilter, newFilter) {
+  var changeFilter = function (newFilter, oldFilter) {
     imagePreview.classList.remove('filter-' + oldFilter);
     imagePreview.classList.add('filter-' + newFilter);
   };
