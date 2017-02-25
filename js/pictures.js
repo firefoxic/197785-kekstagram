@@ -4,6 +4,16 @@ window.pictures = (function () {
 
   var DATA_URL = 'https://intensive-javascript-server-myophkugvq.now.sh/kekstagram/data';
   var picturesContainer = document.querySelector('.pictures');
+  var filters = document.querySelector('.filters');
+
+  var addElement = function (result, element) {
+    result.append(element);
+    return result;
+  };
+
+  var returnTrue = function () {
+    return true;
+  };
 
   return function () {
 
@@ -34,11 +44,36 @@ window.pictures = (function () {
 
     var onLoadData = function (data) {
 
-      picturesContainer.innerHTML = '';
       var pictures = data.target.response;
+
+      var handleChooseFilter = function (newFilter) {
+
+        picturesContainer.innerHTML = '';
+
+        switch (newFilter) {
+          case 'popular':
+            picturesContainer.append(pictures.filter(returnTrue).map(createPost).reduce(addElement, document.createDocumentFragment()));
+            break;
+          case 'new':
+            picturesContainer.append(pictures.filter(returnTrue).sort(function () {
+              return Math.random() - 0.5;
+            }).slice(0, 10).map(createPost).reduce(addElement, document.createDocumentFragment()));
+            break;
+          case 'discussed':
+            picturesContainer.append(pictures.filter(returnTrue).sort(function (a, b) {
+              return b.comments.length - a.comments.length;
+            }).map(createPost).reduce(addElement, document.createDocumentFragment()));
+            break;
+        }
+
+      };
+
       for (var i = 0; i < pictures.length; i++) {
         createPost(pictures[i]);
       }
+
+      filters.classList.remove('hidden');
+      window.initializeFilters(filters, handleChooseFilter, 'popular');
 
     };
 
